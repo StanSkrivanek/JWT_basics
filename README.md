@@ -8,7 +8,6 @@ There is six branches:
 `02_POST_Route_bodyParser`
 `03_User_WebToken`
 `04_Authenticate_User_Access`
-`**END**`
 `master` => FINAL Version
 
 To simulate Server requests we will use application `Postman`
