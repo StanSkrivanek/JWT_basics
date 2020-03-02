@@ -58,3 +58,51 @@ export PORT=3000
 Then start server an you should see message that our port is running on port 3000
 
 When we add in browser `localhost:3000/status` we should get our local time
+
+## POST requests
+
+to be able handle POST request we will use Express `post` method
+and create route that handle users logins
+
+We need to install a middleware `body-parser`
+
+```bash
+npm i body-parser
+```
+
+Than initiate it
+
+```javascript
+// initiate body-parser to let express be able read requests in JSON format
+const bodyParser = require("body-parser");
+```
+
+Define `login` route
+
+```javascript
+app.post("/login", (req, res) => {
+  // user variable will hold value of `username` property that was be passed in request of our JSON object (body)
+  const user = req.body.username;
+
+  // build response (what will be returned on success)
+  res.status(200).send(`You logged in with ${user}`);
+});
+```
+
+Restart your server and for test if all is running so far we will use app [Postman](https://www.postman.com/)
+
+### Postman
+
+in app try to do GET request to `http://localhost:3000/` and we will get error `Not Found`, thats fine as we do not have any user yet but we can see that connection between Postman and server 3000 works.
+
+now lets tru to do SEND request to send some data as JSON Object
+
+Go to `Body` tab choose `raw` and in last option (right) choose `JSON` as format. Then create JSON object with `username` property
+
+```json
+{
+  "username": "Admin"
+}
+```
+
+Once you `Send` this request you should see response `You logged in with Admin`
