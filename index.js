@@ -4,18 +4,36 @@ const bodyParser = require("body-parser");
 // initiate `jsonwebtoken`
 const jwt = require("jsonwebtoken");
 
+const expressjwt = require("express-jwt");
+
 const app = express();
-// set new variable "PORT" with `process.env.PORT`. If env. variable (PORT) is not found use port 8888
-const PORT = process.env.PORT || 8888;
+
+const PORT = process.env.API_PORT || 8888;
 
 // create FAKE database
 const users = [
   { id: 1, username: "admin", password: "admin" },
   { id: 2, username: "guest", password: "guest" }
 ];
-
-// use middleware`body-parser` to be able handle JSON responses. THis mean that now we are able to read request `body`
 app.use(bodyParser.json());
+
+const jwtCheck = expressjwt({
+  secret: "mysupersecretkey"
+});
+
+// PUBLIC
+app.get("/resource", (req, res) => {
+  res.status(200).send("Public data, everyone can see these");
+});
+
+// SPECIFIC USER ONLY route (not protected yet)
+app.get("/resource/secret", jwtCheck, (req, res) => {
+  res
+    .status(200)
+    .send(
+      "Secret data, You have to have permission (be logged in ) to see these data"
+    );
+});
 
 // route (endpoint)
 // app.use(route, callback)
@@ -49,7 +67,7 @@ app.post("/login", (req, res) => {
       sub: user.id,
       username: user.username
     },
-    "mysupersecretkey", //secret key in string
+    "mysupersecretkey", //Signature to match. secret key in string
     { expiresIn: "3 hours" } // option
   );
   res.status(200).send({ access_token: token });
