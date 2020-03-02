@@ -1,7 +1,9 @@
 const express = require("express");
 
 const app = express();
-const PORT = 8888;
+// set new variable "PORT" with `process.env.PORT`. If env. variable (PORT) is not found use port 8888
+const PORT = process.env.PORT || 8888;
+
 // route (endpoint)
 // app.use(endpoint, callback)
 
@@ -18,12 +20,6 @@ app.get("*", (req, res) => {
 });
 
 // and then initialize server
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-// then run server in terminal command `node .`
-// in browser type `localhost:8888` => return server not found
-// add route `localhost:8888/status` => return local time
-// any other `undefined` route give us 404 error
