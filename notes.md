@@ -1,8 +1,8 @@
 # Notes
 
-# 01 - Set basic Express Server
+## 01 - Set basic Express Server
 
-First initialize npm `npm init -y` and then install Express `npm i express`
+First initialize NPM `npm init -y` and then install Express `npm i express`
 
 Then write this code
 
@@ -138,7 +138,7 @@ Define request to check user authentication:
 ```javascript
 // request to check user authentication contain username and password
 if (!req.body.username || !req.body.password) {
-  // buid response
+  // buiLd response
   res.status(400).send("You need a username and password");
   // if one of these conditions is not TRUE stop execution
   return;

@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.post("/login", (req, res) => {
   // request to check user authentication contain username and password
   if (!req.body.username || !req.body.password) {
-    // buid response
+    // build response
     res.status(400).send("You need a username and password");
     // if one of these conditions is not TRUE stop execution
     return;
